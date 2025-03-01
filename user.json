@@ -1,0 +1,28 @@
+[
+    {
+      "id": "1",
+      "name": "Hakan Çanakçı",
+      "rfid_id": "3102379207",
+      "role": "admin",
+      "inside": false,
+      "department": "yazılım",
+      "mail":"hakan.canakci@stu.khas.edu.tr"
+    },
+    {
+        "id": "2",
+        "name": "eren",
+        "rfid_id": "2319124228",
+        "role": "student",
+        "inside": false,
+        "department": "meknaik",
+        "mail":""
+      }
+
+]
+
+
+
+
+
+
+
