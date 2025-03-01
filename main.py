@@ -2,36 +2,42 @@ from fastapi import FastAPI
 import json
 import threading
 import uvicorn
+from crud.verify_admin import verify_user
+from schemas import DoorOpenRequest,UserCreate
+from crud.is_user import is_user
+from crud.add_user import add_user_to_json
+
+
 
 app = FastAPI()
-
-def is_user(user_rfid):
-    try:
-        with open("user.json", "r", encoding="utf-8") as file:
-            users = json.load(file)
-            
-        user = next((u for u in users if u.get("rfid_id") == user_rfid), None)
-        
-        if user is None:
-            return False
-            
-        return True
-    except Exception as e:
-        print(f"Hata: {str(e)}")
-        return False
 
 @app.get("/")
 async def root():
     return {"message": "RFID Kontrol Sunucusu Çalışıyor"}
-
 def run_server():
     uvicorn.run(app, host="0.0.0.0", port=8000)
+
 
 server_thread = threading.Thread(target=run_server)
 server_thread.daemon = True  
 
 server_thread.start()
 print("FastAPI sunucusu çalışıyor")
+
+@app.post("/open_Door")
+async def open_door_from_admin(request:DoorOpenRequest):
+    a=verify_user(request.username,request.password)
+
+    return verify_user(request.username,request.password)
+    
+
+@app.post("/add_user")
+async def add_user(request: UserCreate):
+    result = add_user_to_json(request)
+    return result
+
+
+    return None
 
 while True:
     a = input("ver: ")
@@ -41,4 +47,7 @@ while True:
     else:
         print("Kullanıcı bulunamadı!")
 
-    
+
+
+
+
