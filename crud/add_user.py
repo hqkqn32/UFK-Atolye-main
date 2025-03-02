@@ -16,9 +16,22 @@ def add_user_to_json(user: UserCreate):
                 "message": f"Bu RFID ({user.rfid_id}) zaten kullanımda."
             }
         
+
+        max_id = 0
+        for u in users:
+            if "id" in u and u["id"].isdigit():
+                id_num = int(u["id"])
+                if id_num > max_id:
+                    max_id = id_num
+        
+        # Yeni ID oluştur
+        new_id = str(max_id + 1)
+        
         # Yeni kullanıcı oluştur (ID olmadan)
         new_user = {
+            "id":new_id,
             "name": user.name,
+            "surname":user.surname,
             "rfid_id": user.rfid_id,
             "role": user.role,
             "inside": user.inside,
@@ -50,13 +63,13 @@ def add_user_to_json(user: UserCreate):
             "department": user.department,
             "mail": user.mail
         }
+
+
         
         users.append(new_user)
         
-        # Klasörün varlığını kontrol et
         os.makedirs(os.path.dirname("./user.json"), exist_ok=True)
         
-        # JSON dosyasına yaz
         with open("./user.json", "w", encoding="utf-8") as file:
             json.dump(users, file, indent=2, ensure_ascii=False)
         
@@ -66,7 +79,6 @@ def add_user_to_json(user: UserCreate):
             "user": new_user
         }
     except Exception as e:
-        # Diğer hatalar
         return {
             "success": False,
             "message": f"Kullanıcı eklenirken hata oluştu: {str(e)}"

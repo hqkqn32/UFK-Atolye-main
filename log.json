@@ -52,5 +52,212 @@
     "action": "exit",
     "success": true,
     "message": "Kullanıcı çıkışı başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:44:10.151314",
+    "time": "02.03.2025 14:44:10",
+    "rfid_id": "3129252269",
+    "user_name": null,
+    "action": "access_denied",
+    "success": false,
+    "message": "Geçersiz RFID"
+  },
+  {
+    "timestamp": "2025-03-02T14:44:32.267209",
+    "time": "02.03.2025 14:44:32",
+    "rfid_id": "3129252269",
+    "user_name": "ahmet",
+    "action": "entry",
+    "success": true,
+    "message": "Kullanıcı girişi başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:44:35.861503",
+    "time": "02.03.2025 14:44:35",
+    "rfid_id": "3129252269",
+    "user_name": "ahmet",
+    "action": "exit",
+    "success": true,
+    "message": "Kullanıcı çıkışı başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:44:38.280324",
+    "time": "02.03.2025 14:44:38",
+    "rfid_id": "0441217028",
+    "user_name": null,
+    "action": "access_denied",
+    "success": false,
+    "message": "Geçersiz RFID"
+  },
+  {
+    "timestamp": "2025-03-02T14:45:25.353474",
+    "time": "02.03.2025 14:45:25",
+    "rfid_id": "3129252269",
+    "user_name": "ahmet",
+    "action": "entry",
+    "success": true,
+    "message": "Kullanıcı girişi başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:45:28.503350",
+    "time": "02.03.2025 14:45:28",
+    "rfid_id": "3129252269",
+    "user_name": "ahmet",
+    "action": "exit",
+    "success": true,
+    "message": "Kullanıcı çıkışı başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:48:17.601544",
+    "time": "02.03.2025 14:48:17",
+    "rfid_id": "3102379207",
+    "user_name": "Hakan Çanakçı",
+    "action": "entry",
+    "success": true,
+    "message": "Kullanıcı girişi başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:48:44.740888",
+    "time": "02.03.2025 14:48:44",
+    "rfid_id": "3102379207",
+    "user_name": "Hakan Çanakçı",
+    "action": "exit",
+    "success": true,
+    "message": "Kullanıcı çıkışı başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:48:56.371660",
+    "time": "02.03.2025 14:48:56",
+    "rfid_id": "3102379207",
+    "user_name": "Hakan Çanakçı",
+    "action": "entry",
+    "success": true,
+    "message": "Kullanıcı girişi başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:49:03.442762",
+    "time": "02.03.2025 14:49:03",
+    "rfid_id": "3102379207",
+    "user_name": "Hakan Çanakçı",
+    "action": "exit",
+    "success": true,
+    "message": "Kullanıcı çıkışı başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:49:45.314623",
+    "time": "02.03.2025 14:49:45",
+    "rfid_id": "3102379207",
+    "user_name": "Hakan Çanakçı",
+    "action": "entry",
+    "success": true,
+    "message": "Kullanıcı girişi başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:49:58.882128",
+    "time": "02.03.2025 14:49:58",
+    "rfid_id": "3102379207",
+    "user_name": "Hakan Çanakçı",
+    "action": "exit",
+    "success": true,
+    "message": "Kullanıcı çıkışı başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:50:43.459398",
+    "time": "02.03.2025 14:50:43",
+    "rfid_id": "3102379207",
+    "user_name": "Hakan Çanakçı",
+    "action": "entry",
+    "success": true,
+    "message": "Kullanıcı girişi başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:53:22.679944",
+    "time": "02.03.2025 14:53:22",
+    "rfid_id": "3102379207",
+    "user_name": "Hakan Çanakçı",
+    "action": "exit",
+    "success": true,
+    "message": "Kullanıcı çıkışı başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:54:15.706719",
+    "time": "02.03.2025 14:54:15",
+    "rfid_id": "3102379207",
+    "user_name": "Hakan Çanakçı",
+    "action": "entry",
+    "success": true,
+    "message": "Kullanıcı girişi başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:54:20.371292",
+    "time": "02.03.2025 14:54:20",
+    "rfid_id": "3102379207",
+    "user_name": "Hakan Çanakçı",
+    "action": "exit",
+    "success": true,
+    "message": "Kullanıcı çıkışı başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:54:50.880789",
+    "time": "02.03.2025 14:54:50",
+    "rfid_id": "3102379207",
+    "user_name": "Hakan Çanakçı",
+    "action": "entry",
+    "success": true,
+    "message": "Kullanıcı girişi başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T14:54:58.012753",
+    "time": "02.03.2025 14:54:58",
+    "rfid_id": "3102379207",
+    "name": "Hakan Çanakçı",
+    "action": "exit",
+    "success": true,
+    "message": "Kullanıcı çıkışı başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T15:20:07.381904",
+    "time": "02.03.2025 15:20:07",
+    "rfid_id": "3102379207",
+    "name": null,
+    "action": "access_denied",
+    "success": false,
+    "message": "Geçersiz RFID"
+  },
+  {
+    "timestamp": "2025-03-02T15:20:31.828761",
+    "time": "02.03.2025 15:20:31",
+    "rfid_id": "3102379207",
+    "name": "ahmet",
+    "action": "entry",
+    "success": true,
+    "message": "Kullanıcı girişi başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T15:36:19.597491",
+    "time": "02.03.2025 15:36:19",
+    "rfid_id": "3102379207",
+    "name": "ahmet",
+    "action": "exit",
+    "success": true,
+    "message": "Kullanıcı çıkışı başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T15:36:23.128409",
+    "time": "02.03.2025 15:36:23",
+    "rfid_id": "3102379207",
+    "name": "ahmet",
+    "action": "entry",
+    "success": true,
+    "message": "Kullanıcı girişi başarılı"
+  },
+  {
+    "timestamp": "2025-03-02T15:38:45.127415",
+    "time": "02.03.2025 15:38:45",
+    "rfid_id": "3102379207",
+    "name": "ahmet",
+    "action": "exit",
+    "success": true,
+    "message": "Kullanıcı çıkışı başarılı"
   }
 ]

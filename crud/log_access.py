@@ -14,7 +14,7 @@ def log_access(user_rfid: str) -> Dict:
         if user is None:
             create_access_log(
                 rfid_id=user_rfid,
-                user_name=None,
+                name=None,
                 action="access_denied",
                 success=False,
                 message="Geçersiz RFID"
@@ -38,7 +38,7 @@ def log_access(user_rfid: str) -> Dict:
         action = "entry" if new_status else "exit"
         log_result = create_access_log(
             rfid_id=user_rfid,
-            user_name=user.get("name"),
+            name=user.get("name"),
             action=action,
             success=True,
             message=f"Kullanıcı {'girişi' if new_status else 'çıkışı'} başarılı"
@@ -54,7 +54,7 @@ def log_access(user_rfid: str) -> Dict:
     except Exception as e:
         create_access_log(
             rfid_id=user_rfid,
-            user_name=None,
+            name=None,
             action="error",
             success=False,
             message=str(e)
@@ -64,7 +64,7 @@ def log_access(user_rfid: str) -> Dict:
             "message": f"İşlem sırasında hata oluştu: {str(e)}"
         }
 
-def create_access_log(rfid_id: str, user_name: Optional[str], action: str, success: bool, message: str) -> Dict:
+def create_access_log(rfid_id: str, name: Optional[str], action: str, success: bool, message: str) -> Dict:
     """
     Giriş-çıkış logu oluşturur
     
@@ -77,7 +77,7 @@ def create_access_log(rfid_id: str, user_name: Optional[str], action: str, succe
         
     Returns:
         dict: İşlem sonucu ve oluşturulan log
-    """
+   """
     try:
         try:
             with open("log.json", "r", encoding="utf-8") as file:
@@ -88,7 +88,7 @@ def create_access_log(rfid_id: str, user_name: Optional[str], action: str, succe
         new_log = {
             "timestamp": datetime.datetime.now().isoformat(),
             "rfid_id": rfid_id,
-            "user_name": user_name,
+            "name": name,
             "action": action,
             "success": success,
             "message": message
@@ -96,7 +96,7 @@ def create_access_log(rfid_id: str, user_name: Optional[str], action: str, succe
         
         logs.append(new_log)
         
-        with open("log.json", "w", encoding="utf-8") as file:
+        with open("log.json", "w ", encoding="utf-8") as file:
             json.dump(logs, file, indent=2, ensure_ascii=False)
         
         return {
