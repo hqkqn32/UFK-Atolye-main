@@ -54,10 +54,10 @@ def process_rfid(rfid_id):
         print(f">> İçerideki kişi sayısı: {inside_count}")
 
         if inside_count > 0:
-            gpio(22, "light_on")  # Işıkları aç
+            gpio(23, "light_on")  # Işıkları aç
             print(">> Işıklar açıldı!")
         else:
-            gpio(22, "light_off")  # Işıkları kapat
+            gpio(23, "light_off")  # Işıkları kapat
             print(">> Işıklar kapatıldı!")
         
         return True

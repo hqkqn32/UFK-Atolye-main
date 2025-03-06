@@ -21,9 +21,14 @@ import time
 # GPIO Modunu ve Pini Ayarla
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(22, GPIO.OUT)
+GPIO.output(22, GPIO.LOW)  # Işık başlangıçta kapalı
+
 GPIO.setup(27, GPIO.OUT)
 GPIO.output(27, GPIO.LOW)  # Başlangıçta kapalı
-GPIO.output(22, GPIO.LOW)  # Işık başlangıçta kapalı
+
+
+GPIO.setup(23, GPIO.OUT)
+GPIO.output(23, GPIO.LOW)  # Başlangıçta kapalı
 
 app = FastAPI()
 

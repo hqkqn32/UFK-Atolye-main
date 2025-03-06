@@ -10,4 +10,9 @@ async def gpio(pin,action):
         current_state = GPIO.input(pin)
         GPIO.output(pin, not current_state)
         print(f"PIN {pin} durumu değiştirildi: {'HIGH' if not current_state else 'LOW'}")
-    
+    elif action=="light_on":
+        current_state = GPIO.input(pin)
+        GPIO.output(pin, GPIO.HIGH)
+        print(f"PIN {pin} durumu değiştirildi: {'HIGH' if not current_state else 'LOW'}")
+    elif action=="light_off":
+        GPIO.output(pin, GPIO.LOW)
