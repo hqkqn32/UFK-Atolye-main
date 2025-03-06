@@ -1,5 +1,15 @@
 import json
 import datetime
+import RPi.GPIO as GPIO
+
+
+# GPIO Pin Tanımları
+DOOR_CONTROL_PIN = 27
+
+# GPIO Modunu ve Pini Ayarla
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(DOOR_CONTROL_PIN, GPIO.OUT)
+GPIO.output(DOOR_CONTROL_PIN, GPIO.LOW)  # Başlangıçta kapalı
 
 def process_rfid(rfid_id):
    
@@ -41,6 +51,10 @@ def process_rfid(rfid_id):
         
         print(f">> {user.get('name')} {'içeri girdi' if new_status else 'dışarı çıktı'}")
         print(f">> Durum: {'İçeride' if new_status else 'Dışarıda'}")
+
+        GPIO.output(DOOR_CONTROL_PIN, GPIO.HIGH)  # Kapıyı aç
+        time.sleep(4)  # 4 saniye bekle
+        GPIO.output(DOOR_CONTROL_PIN, GPIO.LOW)  # Kapıyı kapat
         
         return True
         
