@@ -11,11 +11,29 @@ from crud.rfid_processor import process_rfid
 from crud.get_all_users import get_all_users
 from crud.get_inside_users import get_inside_users
 from crud.get_users import get_user_by_id
+from fastapi.middleware.cors import CORSMiddleware
+import RPi.GPIO as GPIO
+import time
 
 
+# GPIO Pin Tanımları
+DOOR_CONTROL_PIN = 27
 
+# GPIO Modunu ve Pini Ayarla
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(DOOR_CONTROL_PIN, GPIO.OUT)
+GPIO.output(DOOR_CONTROL_PIN, GPIO.LOW)  # Başlangıçta kapalı
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],  # Frontend'in adresi
+    allow_credentials=True,
+    allow_methods=["*"],  # Tüm HTTP metotlarını (GET, POST, PUT, DELETE) izin ver
+    allow_headers=["*"],  # Tüm başlıklara izin ver
+)
+
 
 @app.get("/")
 async def root():
@@ -32,9 +50,13 @@ print("FastAPI sunucusu çalışıyor")
 
 @app.post("/open_Door")
 async def open_door_from_admin(request:DoorOpenRequest):
-    a=verify_user(request.username,request.password)
-
-    return verify_user(request.username,request.password)
+    if verify_user(request.username,request.password):
+        GPIO.output(DOOR_CONTROL_PIN, GPIO.HIGH)  # Kapıyı aç
+        time.sleep(4)  # 4 saniye bekle
+        GPIO.output(DOOR_CONTROL_PIN, GPIO.LOW)  # Kapıyı kapat
+        return {"message": "Kapı 4 saniyeliğine açıldı!"}
+    
+    return {"error": "Yetkisiz erişim!"}
     
 
 @app.post("/add_user")
@@ -43,8 +65,15 @@ async def add_user(request: UserCreate):
     return result
    
 @app.post("/delete_user")
-async def delete_user(request:DeleteUserRequest):
-    return delete_user_from_json(username=request.username)
+async def delete_user(request: DeleteUserRequest):
+    if not request.id:
+        raise HTTPException(status_code=400, detail="User ID is required")
+    
+    result = delete_user_from_json(request.id)
+    if result["success"]:
+        return result
+    else:
+        raise HTTPException(status_code=500, detail=result["message"])
 
 
 @app.get("/users", response_model=UserListResponse)

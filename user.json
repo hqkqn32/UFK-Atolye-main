@@ -1,12 +1,1 @@
-[
-  {
-    "id": "1",
-    "name": "ahmet",
-    "surname": "selam",
-    "rfid_id": "3102379207",
-    "role": "admin",
-    "inside": false,
-    "department": "yazılım",
-    "mail": "hakan.canakci@stu.khas.edu.tr"
-  }
-]
+[]

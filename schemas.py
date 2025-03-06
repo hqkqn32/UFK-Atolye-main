@@ -9,7 +9,6 @@ class DoorOpenRequest(BaseModel):
 
 class UserCreate(BaseModel):
     name: str
-    
     surname:str
     rfid_id: str
     role: str = "user"
@@ -18,7 +17,7 @@ class UserCreate(BaseModel):
     mail: Optional[str] = None
 
 class DeleteUserRequest(BaseModel):
-    username: str
+    id: Optional[str] = None
 
 
 class RFIDRequest(BaseModel):
