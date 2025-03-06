@@ -1,15 +1,9 @@
 import json
 import datetime
-import RPi.GPIO as GPIO
+from .gpio import gpio
+from get_inside_users import get_inside_users
 
 
-# GPIO Pin Tanımları
-DOOR_CONTROL_PIN = 27
-
-# GPIO Modunu ve Pini Ayarla
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(DOOR_CONTROL_PIN, GPIO.OUT)
-GPIO.output(DOOR_CONTROL_PIN, GPIO.LOW)  # Başlangıçta kapalı
 
 def process_rfid(rfid_id):
    
@@ -52,9 +46,19 @@ def process_rfid(rfid_id):
         print(f">> {user.get('name')} {'içeri girdi' if new_status else 'dışarı çıktı'}")
         print(f">> Durum: {'İçeride' if new_status else 'Dışarıda'}")
 
-        GPIO.output(DOOR_CONTROL_PIN, GPIO.HIGH)  # Kapıyı aç
-        time.sleep(4)  # 4 saniye bekle
-        GPIO.output(DOOR_CONTROL_PIN, GPIO.LOW)  # Kapıyı kapat
+        gpio(27,"opendoor")
+
+        inside_data = get_inside_users()
+        inside_count = inside_data["total_count"]
+        
+        print(f">> İçerideki kişi sayısı: {inside_count}")
+
+        if inside_count > 0:
+            gpio(22, "light_on")  # Işıkları aç
+            print(">> Işıklar açıldı!")
+        else:
+            gpio(22, "light_off")  # Işıkları kapat
+            print(">> Işıklar kapatıldı!")
         
         return True
         

@@ -1,12 +1,12 @@
 [
     {
       "id": "1",
-      "name": "Emir",
-      "surname": "selam",
+      "name": "Emir Furkan",
+      "surname": "Gökdemir",
       "rfid_id": "3129252269",
       "role": "admin",
       "inside": false,
-      "department": "yazılım",
-      "mail": "hakan.canakci@stu.khas.edu.tr"
+      "department": "YK",
+      "mail": "emir@ufktakimi.com"
     }
   ]

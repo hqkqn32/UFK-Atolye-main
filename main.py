@@ -3,7 +3,7 @@ import json
 import threading
 import uvicorn
 from crud.verify_admin import verify_user
-from schemas import DoorOpenRequest,UserCreate,DeleteUserRequest,UserListResponse
+from schemas import DoorOpenRequest,UserCreate,DeleteUserRequest,UserListResponse,UserEdit
 from crud.is_user import is_user
 from crud.add_user import add_user_to_json
 from crud.delete_user import delete_user_from_json
@@ -12,23 +12,24 @@ from crud.get_all_users import get_all_users
 from crud.get_inside_users import get_inside_users
 from crud.get_users import get_user_by_id
 from fastapi.middleware.cors import CORSMiddleware
+from crud.gpio import gpio
+from crud.edit_user import edit_user_in_json
 import RPi.GPIO as GPIO
 import time
 
 
-# GPIO Pin Tanımları
-DOOR_CONTROL_PIN = 27
-
 # GPIO Modunu ve Pini Ayarla
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(DOOR_CONTROL_PIN, GPIO.OUT)
-GPIO.output(DOOR_CONTROL_PIN, GPIO.LOW)  # Başlangıçta kapalı
+GPIO.setup(22, GPIO.OUT)
+GPIO.setup(27, GPIO.OUT)
+GPIO.output(27, GPIO.LOW)  # Başlangıçta kapalı
+GPIO.output(22, GPIO.LOW)  # Işık başlangıçta kapalı
 
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Frontend'in adresi
+    allow_origins=["*"],  # Frontend'in adresi
     allow_credentials=True,
     allow_methods=["*"],  # Tüm HTTP metotlarını (GET, POST, PUT, DELETE) izin ver
     allow_headers=["*"],  # Tüm başlıklara izin ver
@@ -51,10 +52,16 @@ print("FastAPI sunucusu çalışıyor")
 @app.post("/open_Door")
 async def open_door_from_admin(request:DoorOpenRequest):
     if verify_user(request.username,request.password):
-        GPIO.output(DOOR_CONTROL_PIN, GPIO.HIGH)  # Kapıyı aç
-        time.sleep(4)  # 4 saniye bekle
-        GPIO.output(DOOR_CONTROL_PIN, GPIO.LOW)  # Kapıyı kapat
-        return {"message": "Kapı 4 saniyeliğine açıldı!"}
+        gpio(27,"opendoor")
+        return {"message": "Kapı 2 saniyeliğine açıldı!"}
+    
+    return {"error": "Yetkisiz erişim!"}
+
+@app.post("/open_light")
+async def open_light_admin(request:DoorOpenRequest):
+    if verify_user(request.username,request.password):
+        gpio(22,"light")
+        return {"message": "Işık durumu değiştirildi"}
     
     return {"error": "Yetkisiz erişim!"}
     
@@ -75,6 +82,10 @@ async def delete_user(request: DeleteUserRequest):
     else:
         raise HTTPException(status_code=500, detail=result["message"])
 
+
+@app.put("/edit_user/{user_id}")
+async def edit_user_in_json(user_id: str, updated_data: UserEdit):
+    return edit_user_in_json(user_id, updated_data)
 
 @app.get("/users", response_model=UserListResponse)
 async def get_users():

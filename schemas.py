@@ -38,3 +38,12 @@ class UserListResponse(BaseModel):
     message: str
     total_count: int
     users: List[User]
+
+class UserEdit(BaseModel):
+    name: Optional[str] = None
+    surname: Optional[str] = None
+    rfid_id: Optional[str] = None
+    role: Optional[str] = None
+    inside: Optional[bool] = None
+    department: Optional[str] = None
+    mail: Optional[str] = None
