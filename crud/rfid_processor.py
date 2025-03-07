@@ -66,36 +66,7 @@ def process_rfid(rfid_id):
         print(f">> HATA: {str(e)}")
         return False
 
-def log_access_attempt(rfid_id, name, user_id, action, success, message):
-    try:
-        try:
-            with open("./log.json", "r", encoding="utf-8") as file:
-                logs = json.load(file)
-        except (FileNotFoundError, json.JSONDecodeError):
-            logs = []
-            
-        now = datetime.datetime.now()
-        timestamp = now.isoformat()
-        time_formatted = now.strftime("%d.%m.%Y %H:%M:%S")
-            
-        log_entry = {
-            "timestamp": timestamp,
-            "time": time_formatted,
-            "rfid_id": rfid_id,
-            "name": name,
-            "user_id": user_id,  # Add user ID to the log entry
-            "action": action,
-            "success": success,
-            "message": message
-        }
-            
-        logs.append(log_entry)
-            
-        with open("./log.json", "w", encoding="utf-8") as file:
-            json.dump(logs, file, indent=2, ensure_ascii=False)
-            
-    except Exception as e:
-        print(f">> Log yazma hatası: {str(e)}")
+
 
 def log_access_attempt(rfid_id, name, action, success, message):
  
