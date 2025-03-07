@@ -16,9 +16,12 @@ from crud.gpio import gpio
 from crud.edit_user import edit_user_in_json
 import RPi.GPIO as GPIO
 import time
+from crud.get_logs import *
+from crud.get_duration import * 
 
 
 # GPIO Modunu ve Pini Ayarla
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(22, GPIO.OUT)
 GPIO.output(22, GPIO.LOW)  # Işık başlangıçta kapalı
@@ -28,7 +31,9 @@ GPIO.output(27, GPIO.LOW)  # Başlangıçta kapalı
 
 
 GPIO.setup(23, GPIO.OUT)
-GPIO.output(23, GPIO.LOW)  # Başlangıçta kapalı
+GPIO.output(23, GPIO.LOW) 
+
+# Başlangıçta kapalı
 
 app = FastAPI()
 
@@ -126,18 +131,75 @@ async def get_Inside():
     
     return result
 
+@app.get("/get_logs")
+async def get_logs():
+    logs = await get_all_logs()
+    return {
+        "status": "success",
+        "count": len(logs),
+        "logs": logs
+    }
 
+# Belirli bir kullanıcının tüm loglarını getirir
+@app.get("/get_logs/{user_id}")
+async def get_logs_by_user(user_id: str = Path(..., description="Kullanıcı ID'si")):
+    logs = await get_logs_by_user_id(user_id)
+    return {
+        "status": "success",
+        "count": len(logs),
+        "user_id": user_id,
+        "logs": logs
+    }
+
+# Belirli bir kullanıcının belirli sayıda logunu getirir
+@app.get("/get_logs/{user_id}/{limit}")
+async def get_logs_limited(
+    user_id: str = Path(..., description="Kullanıcı ID'si"),
+    limit: int = Path(..., description="Gösterilecek log sayısı")
+):
+    logs = await get_logs_by_user_id_limited(user_id, limit)
+    return {
+        "status": "success",
+        "count": len(logs),
+        "user_id": user_id,
+        "limit": limit,
+        "logs": logs
+    } 
+
+
+@app.get("/calculate_duration")
+async def get_all_durations(start_date: str = Query(None, description="Başlangıç tarihi (DD.MM.YYYY)")):
+    durations = await calculate_duration(start_date=start_date)
+    return {
+        "status": "success",
+        "count": len(durations),
+        "durations": durations
+    }
+
+# Belirli bir kullanıcının içeride kalma süresini hesaplar
+@app.get("/calculate_duration/{user_id}")
+async def get_user_duration(
+    user_id: str = Path(..., description="Kullanıcı ID'si"),
+    start_date: str = Query(None, description="Başlangıç tarihi (DD.MM.YYYY)")
+):
+    durations = await calculate_duration(user_id=user_id, start_date=start_date)
+    return {
+        "status": "success",
+        "user_id": user_id,
+        "durations": durations
+    }
 while True:
     a = input("ver: ")
     
     processed = process_rfid(a)
     
-    # Eğer işlenemediyse (geçersiz RFID), normal kullanıcı kontrolü yap
     if not processed:
         result = is_user(a)
         if result:
             print("Kullanıcı doğrulandı!")
         else:
             print("Kullanıcı bulunamadı!")
+
+
 
 

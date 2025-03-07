@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 
+
 def gpio(pin,action):
     if action=="opendoor":
         GPIO.output(pin, GPIO.HIGH)  # Kapıyı aç
@@ -16,3 +17,7 @@ def gpio(pin,action):
         print(f"PIN {pin} durumu değiştirildi: {'HIGH' if not current_state else 'LOW'}")
     elif action=="light_off":
         GPIO.output(pin, GPIO.LOW)
+
+
+
+
