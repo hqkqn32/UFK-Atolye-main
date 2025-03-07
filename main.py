@@ -183,12 +183,6 @@ class RFIDApp:
         
         if not processed:
             result = is_user(rfid_code)
-            if result:
-                messagebox.showinfo("Başarılı", "Kullanıcı doğrulandı!")
-            else:
-                messagebox.showerror("Hata", "Kullanıcı bulunamadı!")
-        else:
-            messagebox.showinfo("Bilgi", "RFID işlemi tamamlandı!")
 
         self.entry.delete(0, tk.END)  # Input alanını temizle
 
